@@ -13,6 +13,7 @@ markdown
 mysql-python
 pandas
 pygments
+PySmbClient
 python-dateutil
 setproctitle
 sphinx

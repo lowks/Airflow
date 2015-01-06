@@ -143,3 +143,19 @@ class HiveHook(BaseHook):
 
             self.hive._oprot.trans.close()
             return max([p.values[0] for p in parts])
+
+    def export_file(self, hql, filepath):
+        hql = hql.strip().strip(';') + ';'
+        hql = "SET hive.cli.print.header=True;\n" + hql
+        logging.info('Running command:\n' + hql)
+        cmd = 'hive -e "{hql}" > {filepath}'.format(**locals())
+        logging.info("Running command:\n" + cmd)
+        sp = subprocess.Popen(
+            cmd,
+            shell=True,
+            stdout=subprocess.PIPE,)
+        for line in iter(sp.stdout.readline, ''):
+            logging.info(line.strip())
+        sp.wait()
+        if sp.returncode:
+            raise Exception("Hive command failed.")

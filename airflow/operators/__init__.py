@@ -5,3 +5,4 @@ from sensors import SqlSensor
 from sensors import ExternalTaskSensor
 from sensors import HivePartitionSensor
 from dummy_operator import DummyOperator
+from hive2samba_operator import Hive2SambaOperator

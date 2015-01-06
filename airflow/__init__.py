@@ -1,1 +1,1 @@
-from models import DAG
+from airflow.models import DAG
