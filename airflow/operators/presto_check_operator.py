@@ -1,7 +1,7 @@
 import logging
 
 from airflow.configuration import conf
-from airflow.hooks.presto import PrestoHook
+from airflow.hooks import PrestoHook
 from airflow.models import BaseOperator
 from airflow.utils import apply_defaults
 
@@ -12,12 +12,12 @@ class PrestoCheckOperator(BaseOperator):
 
     :param sql: the sql to be executed
     :type sql: string
-    :param presto_dbid: reference to the Hive database
+    :param presto_dbid: reference to the Presto database
     :type presto_dbid: string
     """
 
     __mapper_args__ = {
-        'polymorphic_identity': 'PrestoOperator'
+        'polymorphic_identity': 'PrestoCheckOperator'
     }
     template_fields = ('sql',)
     template_ext = ('.hql', '.sql',)
@@ -33,7 +33,7 @@ class PrestoCheckOperator(BaseOperator):
         self.hook = PrestoHook(presto_dbid=presto_dbid)
         self.sql = sql
 
-    def check(self):
+    def run_check(self):
         logging.info('Executing SQL check: ' + self.sql)
         records = self.hook.get_records(hql=self.sql)
         if not records:
