@@ -33,7 +33,7 @@ class PrestoCheckOperator(BaseOperator):
         self.hook = PrestoHook(presto_dbid=presto_dbid)
         self.sql = sql
 
-    def run_check(self):
+    def execute(self, execution_date=None):
         logging.info('Executing SQL check: ' + self.sql)
         records = self.hook.get_records(hql=self.sql)
         if not records:
