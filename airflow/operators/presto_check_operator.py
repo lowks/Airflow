@@ -39,7 +39,4 @@ class PrestoCheckOperator(BaseOperator):
         if not records:
             return False
         else:
-            if any([ str(r) in ('0', '',) for r in records[0] ]):
-                return False
-            else:
-                return True
+            return not any([ bool(r) for r in records[0] ])
