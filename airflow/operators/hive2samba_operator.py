@@ -45,5 +45,7 @@ class Hive2SambaOperator(BaseOperator):
         tmpfile = tempfile.NamedTemporaryFile()
         tmpfilename = tmpfile.name
         tmpfile.close()
+        logging.info('Exporting file from Hive to local')
         self.hook.export_file(self.hql, tmpfile.name)
+        logging.info('Pushing file to remote Samba drive')
         self.samba.push_from_local(self.destination_filepath, tmpfilename)

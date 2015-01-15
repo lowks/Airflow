@@ -1,5 +1,4 @@
 import logging
-import os
 from smbclient import SambaClient
 
 from airflow import settings
