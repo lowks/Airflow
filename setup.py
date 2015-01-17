@@ -9,6 +9,7 @@ setup(
     version='0.1',
     packages=find_packages(),
     include_package_data=True,
+    description='AirFlow is a system to programmaticaly author, schedule and monitor data pipelines.',
     zip_safe=False,
     scripts=['airflow/bin/airflow'],
     install_requires=[
